@@ -18,7 +18,6 @@ namespace Budgify.API.ContractMapping
         {
             return new Budget
             {
-                Id = Guid.NewGuid(),
                 Name = request.Name
             };
         }

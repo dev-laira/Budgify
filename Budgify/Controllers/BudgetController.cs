@@ -22,10 +22,10 @@ namespace Budgify.API.Controllers
             var newBudget = request.MapToBudget(); 
             var result = _budgetService.CreateBudget(newBudget);
 
-            return CreatedAtAction("GetSingleBudget","BudgetController",new{id = newBudget.Id});
+            return CreatedAtAction("GetSingleBudget","Budget",new{ budgetId = newBudget.Id});
         }
 
-        [HttpGet("Get")]
+        [HttpGet]
         [Route(BudgetEndpoints.GetSingleBudget)]
         public IActionResult GetSingleBudget([FromRoute] Guid budgetId)
         {
@@ -51,7 +51,7 @@ namespace Budgify.API.Controllers
         public IActionResult UpdateBudget([FromRoute]Guid budgetId, [FromBody] UpdateBudgetRequest request)
         {
             var updatedBudget = request.MapToBudget();
-            var result = _budgetService.UpdateBudget(id, updatedBudget); 
+            var result = _budgetService.UpdateBudget(budgetId, updatedBudget); 
 
             if (!result) return NotFound();
 
@@ -62,7 +62,7 @@ namespace Budgify.API.Controllers
         [Route(BudgetEndpoints.DeleteBudget)]
         public IActionResult DeleteBudget([FromRoute]Guid budgetId)
         {
-            var result = _budgetService.DeleteBudget(id);
+            var result = _budgetService.DeleteBudget(budgetId);
             if (!result) return NotFound();
 
             return Ok();
