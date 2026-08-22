@@ -1,27 +1,27 @@
 @Budgify_HostAddress = https://localhost:7068
 
 ### GET ALL BUDGETS
-GET {{Budgify_HostAddress}}
+GET {{Budgify_HostAddress}}/api/budget
 Accepts: application/json
 
 ### CREATE A BUDGET
-POST {{Budgify_HostAddress}}
+POST {{Budgify_HostAddress}}/api/budget
 Content-Type: application/json
 {
   "name": "August 1st half"
 }
 
 ### GET A BUDGET
-GET {{Budgify_HostAddress}}/ed7ccafe-4f64-4d8d-804b-c41137cce45c
+GET {{Budgify_HostAddress}}/api/budget/fd83b820-c2de-4b10-81bd-d33e6ae23c40
 Accepts: application/json
 
 ### UPDATE A BUDGET
-PUT {{Budgify_HostAddress}}/0974be10-a0aa-433f-843b-b6a4a457b6fc
+PUT {{Budgify_HostAddress}}/api/budget/fd83b820-c2de-4b10-81bd-d33e6ae23c40
 Content-Type: application/json
 {
   "Name": "August First Half"
 }
 
 ### DELETE A BUDGET
-DELETE {{Budgify_HostAddress}}/ed7ccafe-4f64-4d8d-804b-c41137cce45c
+DELETE {{Budgify_HostAddress}}/api/budget/fd83b820-c2de-4b10-81bd-d33e6ae23c40
 

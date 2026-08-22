@@ -1,4 +1,5 @@
-﻿using Budgify.API.ContractMapping;
+﻿using Budgify.API.APIEndpoints;
+using Budgify.API.ContractMapping;
 using Budgify.Application.Services;
 using Budgify.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Budgify.API.Controllers
 {
     [ApiController]
-    [Route("/api/budget")]
     public class BudgetController : ControllerBase
     {
         public readonly IBudgetService _budgetService;
@@ -16,7 +16,7 @@ namespace Budgify.API.Controllers
         }
 
         [HttpPost]
-        [Route("/")]
+        [Route(BudgetEndpoints.CreateBudget)]
         public IActionResult CreateBudget([FromBody]CreateBudgetRequest request)
         {
             var newBudget = request.MapToBudget(); 
@@ -26,10 +26,10 @@ namespace Budgify.API.Controllers
         }
 
         [HttpGet("Get")]
-        [Route($"/{{id:guid}}")]
-        public IActionResult GetSingleBudget([FromRoute] Guid id)
+        [Route(BudgetEndpoints.GetSingleBudget)]
+        public IActionResult GetSingleBudget([FromRoute] Guid budgetId)
         {
-            var budget = _budgetService.GetSingleBudget(id);
+            var budget = _budgetService.GetSingleBudget(budgetId);
 
             if (budget is null)
                 return NotFound();
@@ -38,7 +38,7 @@ namespace Budgify.API.Controllers
         }
 
         [HttpGet]
-        [Route("/")]
+        [Route(BudgetEndpoints.GetAllBudgets)]
         public IActionResult GetAllBudget()
         {
             var budgets = _budgetService.GetAllBudgets();
@@ -47,11 +47,11 @@ namespace Budgify.API.Controllers
         }
 
         [HttpPut]
-        [Route($"/{{id:guid}}")]
-        public IActionResult UpdateBudget([FromRoute]Guid id, [FromBody] UpdateBudgetRequest request)
+        [Route(BudgetEndpoints.UpdateBudget)]
+        public IActionResult UpdateBudget([FromRoute]Guid budgetId, [FromBody] UpdateBudgetRequest request)
         {
             var updatedBudget = request.MapToBudget();
-            var result = _budgetService.UpdateBudget(id, updatedBudget); ;
+            var result = _budgetService.UpdateBudget(id, updatedBudget); 
 
             if (!result) return NotFound();
 
@@ -59,16 +59,14 @@ namespace Budgify.API.Controllers
         }
 
         [HttpDelete]
-        [Route($"/{{id:guid}}")]
-        public IActionResult DeleteBudget([FromRoute]Guid id)
+        [Route(BudgetEndpoints.DeleteBudget)]
+        public IActionResult DeleteBudget([FromRoute]Guid budgetId)
         {
             var result = _budgetService.DeleteBudget(id);
-
             if (!result) return NotFound();
 
             return Ok();
         }
-
 
     }
 }
