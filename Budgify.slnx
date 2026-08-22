@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Budgify.Application/Budgify.Application.csproj" />
+  <Project Path="Budgify.Contracts/Budgify.Contracts.csproj" />
+  <Project Path="Budgify/Budgify.API.csproj" />
+</Solution>
