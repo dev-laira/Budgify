@@ -1,27 +1,45 @@
 @Budgify_HostAddress = https://localhost:7068
+@Budgify_BudgetBase = /api/budget
 
 ### GET ALL BUDGETS
-GET {{Budgify_HostAddress}}
+GET {{Budgify_HostAddress}}{{Budgify_BudgetBase}}
 Accepts: application/json
 
 ### CREATE A BUDGET
-POST {{Budgify_HostAddress}}
+POST {{Budgify_HostAddress}}{{Budgify_BudgetBase}}
 Content-Type: application/json
 {
   "name": "August 1st half"
 }
 
 ### GET A BUDGET
-GET {{Budgify_HostAddress}}/ed7ccafe-4f64-4d8d-804b-c41137cce45c
+GET {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/7080fab1-1d12-4870-b1e1-f12f390a5f4c
 Accepts: application/json
 
 ### UPDATE A BUDGET
-PUT {{Budgify_HostAddress}}/0974be10-a0aa-433f-843b-b6a4a457b6fc
+PUT {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/fd83b820-c2de-4b10-81bd-d33e6ae23c40
 Content-Type: application/json
 {
   "Name": "August First Half"
 }
 
 ### DELETE A BUDGET
-DELETE {{Budgify_HostAddress}}/ed7ccafe-4f64-4d8d-804b-c41137cce45c
+DELETE {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/fd83b820-c2de-4b10-81bd-d33e6ae23c40
 
+### ADD BUDGET INCOME 
+POST {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/3e5e5c42-46c3-47fb-9765-697eda9aee1c/income
+Content-Type: application/json
+{
+  "Name":"Job Salary",
+  "Amount": 50000,
+  "Category": "Salary",
+  "Distribution":{
+    "Savings":"30",
+    "Needs": "50",
+    "Wants": "20"
+  }
+}
+
+### GET BUDGET INCOME 
+GET {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/3e5e5c42-46c3-47fb-9765-697eda9aee1c/income/466c1e20-e666-4bd9-b7d4-aefa237b9776
+Accepts: application/json

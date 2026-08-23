@@ -52,5 +52,73 @@ namespace Budgify.Application.Database
             var budget = BudgetList.FirstOrDefault(x => x.Id == id);
             return budget != null;
         }
+
+        public bool AddBudgetIncome(Guid budgetId, Income income)
+        {
+            if (!BudgetExists(budgetId)) return false;
+
+            var budget = BudgetList.FirstOrDefault(x => x.Id == budgetId);
+            budget!.Incomes?.Add(income);
+
+            return true;
+        }
+
+        public List<Income> GetAllBudgetIncomes(Guid budgetId)
+        {
+            if (!BudgetExists(budgetId)) return null!;
+
+            var budget = BudgetList.FirstOrDefault(x =>x.Id == budgetId);
+            return budget!.Incomes; 
+        }
+
+        public Income GetSingleBudgetIncome(Guid budgetId, Guid incomeId)
+        {
+            if (!BudgetIncomeExists(budgetId,incomeId)) return null!;
+
+            var budget = BudgetList.FirstOrDefault(x => x.Id == budgetId);
+            
+            var budgetIncome = budget!.Incomes.FirstOrDefault(x => x.Id == incomeId);
+
+            return budgetIncome!;
+        }
+
+        public bool UpdateBudgetIncome(Guid budgetId, Guid incomeId, Income income)
+        {
+            if (!BudgetIncomeExists(budgetId, incomeId)) return false;
+            var budget = BudgetList.FirstOrDefault(x => x.Id == budgetId);
+            var budgetIncome = budget!.Incomes.FirstOrDefault(x => x.Id == incomeId);
+
+            budgetIncome = new Income
+            {
+                Id = budgetId,
+                Name = income.Name,
+                Amount = income.Amount,
+                Category = income.Category,
+                Distribution = income.Distribution
+            };
+
+            return true;
+        }
+
+        public bool DeleteBudgetIncome(Guid budgetId, Guid incomeId)
+        {
+            if (!BudgetIncomeExists(budgetId, incomeId)) return false;
+            var budget = BudgetList.FirstOrDefault(x => x.Id == budgetId);
+            var budgetIncome = budget!.Incomes.FirstOrDefault(x => x.Id == incomeId);
+
+            budget.Incomes.Remove(budgetIncome!);
+            return true;
+        }
+
+        public bool BudgetIncomeExists(Guid budgetId, Guid incomeId)
+        {
+            if (!BudgetExists(budgetId)) return false!;
+
+            var budget = BudgetList.FirstOrDefault(x => x.Id == budgetId);
+
+            var income = budget!.Incomes?.FirstOrDefault(x => x.Id == incomeId);
+
+            return income != null;
+        }
     }
 }
