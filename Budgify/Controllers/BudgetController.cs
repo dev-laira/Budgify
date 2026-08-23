@@ -22,7 +22,7 @@ namespace Budgify.API.Controllers
             var newBudget = request.MapToBudget(); 
             var result = _budgetService.CreateBudget(newBudget);
 
-            return CreatedAtAction("GetSingleBudget","Budget",new{ budgetId = newBudget.Id});
+            return CreatedAtAction(nameof(CreateBudget), new {bugdetId=newBudget.Id});
         }
 
         [HttpGet]
