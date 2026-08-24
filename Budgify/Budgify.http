@@ -13,21 +13,21 @@ Content-Type: application/json
 }
 
 ### GET A BUDGET
-GET {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/7080fab1-1d12-4870-b1e1-f12f390a5f4c
+GET {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/6b74cd36-13fa-49da-82f5-12c6b36217d9
 Accepts: application/json
 
 ### UPDATE A BUDGET
-PUT {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/fd83b820-c2de-4b10-81bd-d33e6ae23c40
+PUT {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5
 Content-Type: application/json
 {
   "Name": "August First Half"
 }
 
 ### DELETE A BUDGET
-DELETE {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/fd83b820-c2de-4b10-81bd-d33e6ae23c40
+DELETE {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5
 
 ### ADD BUDGET INCOME 
-POST {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/3e5e5c42-46c3-47fb-9765-697eda9aee1c/income
+POST {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5/income
 Content-Type: application/json
 {
   "Name":"Job Salary",
@@ -41,5 +41,22 @@ Content-Type: application/json
 }
 
 ### GET BUDGET INCOME 
-GET {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/3e5e5c42-46c3-47fb-9765-697eda9aee1c/income/466c1e20-e666-4bd9-b7d4-aefa237b9776
+GET {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5/income/8c9a6dd2-ed4a-45eb-a813-25d0ad545ef2
 Accepts: application/json
+
+### UPDATE BUDGET INCOME
+PUT {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5/income/8c9a6dd2-ed4a-45eb-a813-25d0ad545ef2
+Content-Type: application/json
+{
+  "Name":"Job Salary",
+  "Amount": 70000,
+  "Category": "Salary",
+  "Distribution":{
+    "Savings":"40",
+    "Needs": "50",
+    "Wants": "10"
+  }
+}
+
+### DELETE BUDGET INCOME
+DELETE {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5/income/8c9a6dd2-ed4a-45eb-a813-25d0ad545ef2  

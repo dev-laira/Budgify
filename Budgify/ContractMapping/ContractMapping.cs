@@ -29,19 +29,25 @@ namespace Budgify.API.ContractMapping
         }
 
         public static Income MapToIncome(this AddIncomeRequest request)
+            => BuildIncome(Guid.NewGuid(), request.Name, request.Amount, request.Category, request.Distribution);
+
+        public static Income MapToIncome(this UpdateIncomeRequest request, Guid incomeId)
+            => BuildIncome(incomeId, request.Name, request.Amount, request.Category, request.Distribution);
+
+        private static Income BuildIncome(Guid id, string name, decimal amount, string category, Dictionary<string, string>? distribution)
         {
-            var validCategory = Enum.TryParse(typeof(IncomeCategory), request.Category, out object? category);
+            var validCategory = Enum.TryParse(typeof(IncomeCategory), category, out object? parsedCategory);
 
             if (!validCategory)
                 return null!;
 
             return new Income
             {
-                Id = Guid.NewGuid(),
-                Name = request.Name,
-                Amount = request.Amount,
-                Category = (IncomeCategory)category!,
-                Distribution = request.Distribution ?? null
+                Id = id,
+                Name = name,
+                Amount = amount,
+                Category = (IncomeCategory)parsedCategory!,
+                Distribution = distribution ?? null
             };
         }
 
@@ -93,6 +99,15 @@ namespace Budgify.API.ContractMapping
             {
                 BudgetId = budgetId,
                 Income = income.MapToResponse()
+            };
+        }
+
+        public static BudgetIncomeResponses MapToResponse(this List<Income> incomes, Guid budgetId)
+        {
+            return new BudgetIncomeResponses
+            {
+                BudgetId = budgetId,
+                Incomes = incomes.MapToResponse().BudgetIncomes
             };
         }
         #endregion
