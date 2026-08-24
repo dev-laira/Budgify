@@ -20,6 +20,8 @@ namespace Budgify.Application.Database
 
         public bool DeleteBudget(Guid id)
         {
+            if (!BudgetExists(id)) return false;
+
             var budget = BudgetList.FirstOrDefault(x => x.Id == id);
             BudgetList.Remove(budget!);
             return true;
@@ -38,6 +40,8 @@ namespace Budgify.Application.Database
 
         public bool UpdateBudget(Guid id, Budget budget)
         {
+            if(!BudgetExists(id)) return false;
+
             var currentValue = BudgetList.FirstOrDefault(x => x.Id == id);
             currentValue!.Name = budget.Name;
             return true;
