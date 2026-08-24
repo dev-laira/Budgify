@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Budgify.Application.Models
+namespace Budgify.Contracts.Responses
 {
-    public class Budget
+    public class BudgetResponse
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public List<Income>? Incomes { get; set; } = new();
+        public List<IncomeResponse>? Incomes { get; set; } = null;
     }
 }

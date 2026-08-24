@@ -22,7 +22,7 @@ namespace Budgify.API.Controllers
             var newBudget = request.MapToBudget(); 
             var result = _budgetService.CreateBudget(newBudget);
 
-            return CreatedAtAction(nameof(CreateBudget), new {bugdetId=newBudget.Id});
+            return CreatedAtAction(nameof(GetSingleBudget), new { budgetId = newBudget.Id},null);
         }
 
         [HttpGet]
@@ -34,7 +34,7 @@ namespace Budgify.API.Controllers
             if (budget is null)
                 return NotFound();
 
-            return Ok(budget);
+            return Ok(budget.MapToResponse());
         }
 
         [HttpGet]
@@ -43,7 +43,7 @@ namespace Budgify.API.Controllers
         {
             var budgets = _budgetService.GetAllBudgets();
 
-            return Ok(budgets);
+            return Ok(budgets.MapToResponse().Budgets);
         }
 
         [HttpPut]
@@ -65,8 +65,73 @@ namespace Budgify.API.Controllers
             var result = _budgetService.DeleteBudget(budgetId);
             if (!result) return NotFound();
 
+            return NoContent();
+        }
+
+        [HttpPost]
+        [Route(BudgetEndpoints.AddBudgetIncome)]
+        public IActionResult AddBudgetIncome([FromRoute]Guid budgetId, [FromBody]AddIncomeRequest request)
+        {
+            var income = request.MapToIncome();
+
+            if (income is null) return BadRequest();
+
+            var result = _budgetService.AddBudgetIncome(budgetId, income);
+
+            if (!result) return NotFound();
+
+            return CreatedAtAction(nameof(GetSingleBudgetIncome), new { budgetId = budgetId, incomeId = income.Id},null);
+        }
+
+        [HttpGet]
+        [Route(BudgetEndpoints.GetSingleBudgetIncome)]
+        public IActionResult GetSingleBudgetIncome([FromRoute]Guid budgetId, [FromRoute] Guid incomeId)
+        {
+            var income  = _budgetService.GetSingleBudgetIncome(budgetId, incomeId);
+
+            if(income is null) return NotFound();
+
+            return Ok(income.MapToResponse(budgetId));
+        }
+
+        [HttpGet]
+        [Route(BudgetEndpoints.GetAllBudgetIncomes)]
+        public IActionResult GetAllBudgetIncomes([FromRoute] Guid budgetId) {
+
+            var incomes = _budgetService.GetAllBudgetIncomes(budgetId);
+
+            if(incomes is null) return NotFound();
+
+            return Ok(incomes.MapToResponse(budgetId));
+        }
+
+        [HttpPut]
+        [Route(BudgetEndpoints.UpdateBudgetIncome)]
+        public IActionResult UpdateBudgetIncome([FromRoute] Guid budgetId, [FromRoute] Guid incomeId, [FromBody] UpdateIncomeRequest request)
+        {
+
+            var updatedIncome = request.MapToIncome(incomeId);
+
+            if (updatedIncome is null) return BadRequest();
+
+            var result = _budgetService.UpdateBudgetIncome(budgetId, incomeId, updatedIncome);
+
+            if (!result) return NotFound();
+
             return Ok();
         }
+
+        [HttpDelete]
+        [Route(BudgetEndpoints.DeleteBudgetIncome)]
+        public IActionResult DeleteBudgetIncome([FromRoute] Guid budgetId, [FromRoute] Guid incomeId)
+        {
+            var result = _budgetService.DeleteBudgetIncome(budgetId, incomeId);
+
+            if (!result) return NotFound();
+
+            return NoContent();
+        }
+
 
     }
 }

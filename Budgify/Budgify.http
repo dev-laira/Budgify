@@ -1,27 +1,62 @@
 @Budgify_HostAddress = https://localhost:7068
+@Budgify_BudgetBase = /api/budget
 
 ### GET ALL BUDGETS
-GET {{Budgify_HostAddress}}/api/budget
+GET {{Budgify_HostAddress}}{{Budgify_BudgetBase}}
 Accepts: application/json
 
 ### CREATE A BUDGET
-POST {{Budgify_HostAddress}}/api/budget
+POST {{Budgify_HostAddress}}{{Budgify_BudgetBase}}
 Content-Type: application/json
 {
   "name": "August 1st half"
 }
 
 ### GET A BUDGET
-GET {{Budgify_HostAddress}}/api/budget/fd83b820-c2de-4b10-81bd-d33e6ae23c40
+GET {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/6b74cd36-13fa-49da-82f5-12c6b36217d9
 Accepts: application/json
 
 ### UPDATE A BUDGET
-PUT {{Budgify_HostAddress}}/api/budget/fd83b820-c2de-4b10-81bd-d33e6ae23c40
+PUT {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5
 Content-Type: application/json
 {
   "Name": "August First Half"
 }
 
 ### DELETE A BUDGET
-DELETE {{Budgify_HostAddress}}/api/budget/fd83b820-c2de-4b10-81bd-d33e6ae23c40
+DELETE {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5
 
+### ADD BUDGET INCOME 
+POST {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5/income
+Content-Type: application/json
+{
+  "Name":"Job Salary",
+  "Amount": 50000,
+  "Category": "Salary",
+  "Distribution":{
+    "Savings":"30",
+    "Needs": "50",
+    "Wants": "20"
+  }
+}
+
+### GET BUDGET INCOME 
+GET {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5/income/8c9a6dd2-ed4a-45eb-a813-25d0ad545ef2
+Accepts: application/json
+
+### UPDATE BUDGET INCOME
+PUT {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5/income/8c9a6dd2-ed4a-45eb-a813-25d0ad545ef2
+Content-Type: application/json
+{
+  "Name":"Job Salary",
+  "Amount": 70000,
+  "Category": "Salary",
+  "Distribution":{
+    "Savings":"40",
+    "Needs": "50",
+    "Wants": "10"
+  }
+}
+
+### DELETE BUDGET INCOME
+DELETE {{Budgify_HostAddress}}{{Budgify_BudgetBase}}/cd2f9a09-bda1-48f2-be3c-d886f24c17a5/income/8c9a6dd2-ed4a-45eb-a813-25d0ad545ef2  

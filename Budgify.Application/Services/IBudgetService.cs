@@ -14,5 +14,12 @@ namespace Budgify.Application.Services
         bool UpdateBudget(Guid id, Budget budget);
         bool DeleteBudget(Guid id);
         bool BudgetExists(Guid id);
+
+        bool AddBudgetIncome(Guid budgetId, Income income);
+        List<Income> GetAllBudgetIncomes(Guid budgetId);
+        Income GetSingleBudgetIncome(Guid budgetId, Guid incomeId);
+        bool UpdateBudgetIncome(Guid budgetId, Guid incomeId, Income income);
+        bool DeleteBudgetIncome(Guid budgetId, Guid incomeId);
+        bool BudgetIncomeExists(Guid budgetId, Guid incomeId);
     }
 }

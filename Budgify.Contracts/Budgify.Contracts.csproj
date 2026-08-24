@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Responses\" />
+    <ProjectReference Include="..\Budgify.Application\Budgify.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -48,5 +48,43 @@ namespace Budgify.Application.Services
 
             return _budgetRepository.UpdateBudget(id, budget);
         }
+
+        public bool AddBudgetIncome(Guid budgetId, Income income)
+        {
+            return _budgetRepository.AddBudgetIncome(budgetId, income);
+        }
+
+        public bool BudgetIncomeExists(Guid budgetId, Guid incomeId)
+        {
+            return _budgetRepository.BudgetIncomeExists(budgetId, incomeId);
+        }
+
+        public bool DeleteBudgetIncome(Guid budgetId, Guid incomeId)
+        {
+            if (!BudgetIncomeExists(budgetId, incomeId)) return false;
+
+            return _budgetRepository.DeleteBudgetIncome(budgetId, incomeId);
+        }
+
+        public List<Income> GetAllBudgetIncomes(Guid budgetId)
+        {
+            if (!BudgetExists(budgetId)) return null!;
+
+            return _budgetRepository.GetAllBudgetIncomes(budgetId);
+        }
+
+        public Income GetSingleBudgetIncome(Guid budgetId, Guid incomeId)
+        {
+            if (!BudgetIncomeExists(budgetId, incomeId)) return null!;
+
+            return _budgetRepository.GetSingleBudgetIncome(budgetId, incomeId);
+        }
+
+        public bool UpdateBudgetIncome(Guid budgetId, Guid incomeId, Income income)
+        {
+            if (!BudgetIncomeExists(budgetId, incomeId)) return false;
+
+            return _budgetRepository.UpdateBudgetIncome(budgetId, incomeId, income);
+        }
     }
 }

@@ -6,10 +6,10 @@ namespace Budgify.Application.Models
 {
     public class Income
     {
-        public Guid id { get; init; } = Guid.NewGuid();
-        public string Name { get; init; } = string.Empty;
-        public decimal Amount { get; init; }
-        public IncomeCategory Category { get; init; }
-        public Dictionary<string, string>? Distribution { get; init; } = new Dictionary<String,String>();
+        public Guid Id { get; init; } = Guid.Empty;
+        public string Name { get; set; } = string.Empty;
+        public decimal Amount { get; set; }
+        public IncomeCategory Category { get; set; }
+        public Dictionary<string, string>? Distribution { get; set; } = new();
     }
 }
